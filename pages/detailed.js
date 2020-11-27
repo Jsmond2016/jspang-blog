@@ -10,10 +10,13 @@ import Footer from './components/Footer'
 import '../static/style/pages/detailed.css'
 import markdown from './markdown'
 
+import axios from 'axios'
 import MarkNav from 'markdown-navbar';
 import 'markdown-navbar/dist/navbar.css';
 
-const Detail = () => {
+const Detail = (article) => {
+
+  const [myMyarticle, setMyarticle] = useState(article.data);
 
   return (
     <>
@@ -38,9 +41,9 @@ const Detail = () => {
                 </div>
 
               <div className="list-icon center">
-                <span><Icon type="calendar" /> 2019-06-28</span>
+                <span><Icon type="calendar" />{myMyarticle.addTime}</span>
                 <span><Icon type="folder" /> 视频教程</span>
-                <span><Icon type="fire" /> 5498人</span>
+                <span><Icon type="fire" /> {viewCount}人</span>
               </div>
 
               <div className="detailed-content" >
@@ -75,6 +78,23 @@ const Detail = () => {
 
     </>
   )
+}
+
+Detail.getInitialProps = async (context) => {
+
+  console.log(context.query.id)
+  let id = context.query.id
+  const promise = new Promise((resolve) => {
+
+    axios('http://127.0.0.1:7001/default/getArticleById/' + id).then(
+      (res) => {
+        console.log(title)
+        resolve(res.data.data[0])
+      }
+    )
+  })
+
+  return await promise
 }
 
 export default Detail
