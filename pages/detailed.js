@@ -13,10 +13,41 @@ import markdown from './markdown'
 import axios from 'axios'
 import MarkNav from 'markdown-navbar';
 import 'markdown-navbar/dist/navbar.css';
+import marked from 'marked'
+import highLight from 'highlight.js'
+import 'highlight.js/styles/monokai-sublime.css';
+import Tocify from './components/tocify.tsx'
+
+
 
 const Detail = (article) => {
 
   const [myMyarticle, setMyarticle] = useState(article.data);
+
+  const renderer = new marked.Renderer();
+
+  marked.setOptions({
+    renderer: renderer,
+    gfm: true,
+    pedantic: false,
+    sanitize: false,
+    tables: true,
+    breaks: false,
+    smartLists: true,
+    smartypants: false,
+    highlight: function (code) {
+      return highLight.highlightAuto(code).value;
+    }
+  });
+
+  let html = marked(props.article_content)
+
+
+  const tocify = new Tocify()
+  renderer.heading = function (text, level, raw) {
+    const anchor = tocify.add(text, level);
+    return `<a id="${anchor}" href="#${anchor}" class="anchor-fix"><h${level}>${text}</h${level}></a>\n`;
+  };
 
   return (
     <>
@@ -46,12 +77,7 @@ const Detail = (article) => {
                 <span><Icon type="fire" /> {viewCount}人</span>
               </div>
 
-              <div className="detailed-content" >
-                <ReactMarkdown
-                  source={markdown}
-                  escapeHtml={false}
-                />
-              </div>
+              <div className="detailed-content" dangerouslySetInnerHTML={{ __html: html }} />
 
             </div>
 
@@ -64,11 +90,9 @@ const Detail = (article) => {
           <Affix offsetTop={5}>
             <div className="detailed-nav comm-box">
               <div className="nav-title">文章目录</div>
-              <MarkNav
-                className="article-menu"
-                source={markdown}
-                ordered={false}
-              />
+              <div className="toc-list">
+                {tocify && tocify.render()}
+              </div>
             </div>
           </Affix>
 
