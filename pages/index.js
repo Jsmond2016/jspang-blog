@@ -61,7 +61,7 @@ const Home = (list) => {
                   <div className="list-icon">
                     <span><Icon type="calendar" /> {item.addTime} </span>
                     <span><Icon type="folder" /> {item.typeName} </span>
-                    <span><Icon type="fire" /> {viewCount} 人</span>
+                    <span><Icon type="fire" /> {item.viewCount} 人</span>
                   </div>
                   <div className="list-context"
                     dangerouslySetInnerHTML={{__html: marked(item.introduce)}}

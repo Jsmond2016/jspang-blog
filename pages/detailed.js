@@ -1,14 +1,12 @@
 import React, { useState } from 'react'
 import Head from 'next/head'
 import { Row, Col, Icon, Breadcrumb, Affix } from 'antd'
-import ReactMarkdown from 'react-markdown'
 
 import Header from './components/Header'
 import Author from './components/Author'
 import Advert from './components/Advert'
 import Footer from './components/Footer'
 import '../static/style/pages/detailed.css'
-import markdown from './markdown'
 
 import axios from 'axios'
 import MarkNav from 'markdown-navbar';
@@ -21,9 +19,11 @@ import  servicePath  from '../config/apiUrl'
 
 
 
-const Detail = (article) => {
+const Detail = (props) => {
 
-  const [myMyarticle, setMyarticle] = useState(article.data);
+  const { article = {} } = props
+
+  const [myMyarticle, setMyarticle] = useState(article);
 
   const renderer = new marked.Renderer();
 
@@ -41,7 +41,7 @@ const Detail = (article) => {
     }
   });
 
-  let html = marked(props.article_content)
+  let html = marked(myMyarticle.articleContent)
 
 
   const tocify = new Tocify()
@@ -69,13 +69,13 @@ const Detail = (article) => {
 
             <div>
               <div className="detailed-title">
-                React实战视频教程-技术胖Blog开发(更新08集)
+                {myMyarticle.title}
                 </div>
 
               <div className="list-icon center">
                 <span><Icon type="calendar" />{myMyarticle.addTime}</span>
                 <span><Icon type="folder" /> 视频教程</span>
-                <span><Icon type="fire" /> {viewCount}人</span>
+                <span><Icon type="fire" /> {myMyarticle.viewCount}人</span>
               </div>
 
               <div className="detailed-content" dangerouslySetInnerHTML={{ __html: html }} />
@@ -113,8 +113,7 @@ Detail.getInitialProps = async (context) => {
 
     axios(servicePath.getArticleById+id).then(
       (res) => {
-        console.log(title)
-        resolve(res.data.data[0])
+        resolve({article: res.data.data[0]})
       }
     )
   })
