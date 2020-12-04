@@ -9,15 +9,19 @@ import Footer from './components/Footer'
 import '../static/style/pages/detailed.css'
 
 import axios from 'axios'
-import MarkNav from 'markdown-navbar';
 import 'markdown-navbar/dist/navbar.css';
 import marked from 'marked'
 import highLight from 'highlight.js'
 import 'highlight.js/styles/monokai-sublime.css';
 import Tocify from './components/tocify.tsx'
-import  servicePath  from '../config/apiUrl'
-
-
+import servicePath from '../config/apiUrl'
+import {
+  FolderOutlined,
+  CalendarOutlined,
+  FireOutlined
+} from '@ant-design/icons';
+import { DEFAULT_DATE_FORMAT } from '../utils'
+import moment from 'moment'
 
 const Detail = (props) => {
 
@@ -62,20 +66,20 @@ const Detail = (props) => {
             <div className="bread-div">
               <Breadcrumb>
                 <Breadcrumb.Item><a href="/">首页</a></Breadcrumb.Item>
-                <Breadcrumb.Item>视频列表</Breadcrumb.Item>
-                <Breadcrumb.Item>xxxx</Breadcrumb.Item>
+                <Breadcrumb.Item>文章列表</Breadcrumb.Item>
+                <Breadcrumb.Item>{myMyarticle.title}</Breadcrumb.Item>
               </Breadcrumb>
             </div>
 
             <div>
               <div className="detailed-title">
                 {myMyarticle.title}
-                </div>
+              </div>
 
               <div className="list-icon center">
-                <span><Icon type="calendar" />{myMyarticle.addTime}</span>
-                <span><Icon type="folder" /> 视频教程</span>
-                <span><Icon type="fire" /> {myMyarticle.viewCount}人</span>
+                <span><CalendarOutlined style={{ padding: '0 2px' }} /> {moment(myMyarticle.addTime).format(DEFAULT_DATE_FORMAT)} </span>
+                <span><FolderOutlined style={{ padding: '0 2px' }} /> {myMyarticle.typeName} </span>
+                <span><FireOutlined style={{ padding: '0 2px' }} /> {myMyarticle.viewCount} 人</span>
               </div>
 
               <div className="detailed-content" dangerouslySetInnerHTML={{ __html: html }} />
@@ -111,9 +115,9 @@ Detail.getInitialProps = async (context) => {
   let id = context.query.id
   const promise = new Promise((resolve) => {
 
-    axios(servicePath.getArticleById+id).then(
+    axios(servicePath.getArticleById + id).then(
       (res) => {
-        resolve({article: res.data.data[0]})
+        resolve({ article: res.data.data[0] })
       }
     )
   })

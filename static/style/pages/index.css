@@ -27,6 +27,15 @@ code {
 
 }
 
+.list-context p{
+  display: -webkit-box;
+  overflow: hidden;  
+  -webkit-line-clamp: 4;
+  -webkit-box-orient: vertical;
+  word-break: break-all;
+  padding: 2px 4px;
+}
+
 .list-context img{
  width:100% ;
  border-radius:5px;
@@ -35,4 +44,11 @@ code {
  display: block;
  margin:8px  auto ;
 
+}
+
+.list-preview {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  padding-right: 6px;
 }

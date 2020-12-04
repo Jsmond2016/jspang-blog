@@ -14,6 +14,14 @@ import marked from 'marked'
 import hljs from "highlight.js";
 import 'highlight.js/styles/monokai-sublime.css';
 
+import {
+  FolderOutlined,
+  CalendarOutlined,
+  FireOutlined
+} from '@ant-design/icons';
+import moment from 'moment'
+import { DEFAULT_DATE_FORMAT } from '../utils'
+
 const Home = (list) => {
 
   const [mylist, setMylist] = useState(list.data);
@@ -59,13 +67,17 @@ const Home = (list) => {
                     </Link>
                   </div>
                   <div className="list-icon">
-                    <span><Icon type="calendar" /> {item.addTime} </span>
-                    <span><Icon type="folder" /> {item.typeName} </span>
-                    <span><Icon type="fire" /> {item.viewCount} 人</span>
+                    <span><CalendarOutlined style={{padding: '0 2px'}} /> {moment(item.addTime).format(DEFAULT_DATE_FORMAT)} </span>
+                    <span><FolderOutlined style={{padding: '0 2px'}} /> {item.typeName} </span>
+                    <span><FireOutlined style={{padding: '0 2px'}} /> {item.viewCount} 人</span>
                   </div>
                   <div className="list-context"
                     dangerouslySetInnerHTML={{__html: marked(item.introduce)}}
                   />
+                  <div className="list-preview">
+                    <Link href={{ pathname: '/detailed', query: { id: item.id } }}>
+                      <a>查看全文&gt;</a>
+                    </Link></div>
                 </List.Item>
               )}
             />

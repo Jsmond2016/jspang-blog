@@ -65,7 +65,7 @@ const Header = () => {
 								return (
 									<Menu.Item key={item.Id}>
 										<Icon type={item.icon} />
-										{item.type_name}
+										{item.typeName}
 									</Menu.Item>
 								)
 							})
