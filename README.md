@@ -4,7 +4,13 @@
 
 技术栈：
 
-- nestjs
+- React.js
+- Next.js
+- AntDesing
+- axios
+- highlight.js
+- marked.js
+- typescript
 
 功能：
 
