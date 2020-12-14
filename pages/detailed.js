@@ -22,6 +22,9 @@ import {
 } from '@ant-design/icons';
 import { DEFAULT_DATE_FORMAT } from '../utils'
 import moment from 'moment'
+import 'github-markdown-css/github-markdown.css'
+import 'prismjs/themes/prism-okaidia.css'
+// import Prism from 'prismjs'
 
 const Detail = (props) => {
 
@@ -42,6 +45,7 @@ const Detail = (props) => {
     smartypants: false,
     highlight: function (code) {
       return highLight.highlightAuto(code).value;
+      // return Prism.highlight(code, Prism.languages.javascript, 'javascript');
     }
   });
 
@@ -82,7 +86,7 @@ const Detail = (props) => {
                 <span><FireOutlined style={{ padding: '0 2px' }} /> {myMyarticle.viewCount} 人</span>
               </div>
 
-              <div className="detailed-content" dangerouslySetInnerHTML={{ __html: html }} />
+              <div className="detailed-content markdown-body" dangerouslySetInnerHTML={{ __html: html }} />
 
             </div>
 
