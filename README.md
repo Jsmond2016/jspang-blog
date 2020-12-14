@@ -31,5 +31,6 @@
 
 学习资料推荐：
 
+- [手把手教你用React实现一个简单的个人博客](https://juejin.cn/post/6844903501143752718)
 - [Koa2+MongoDB+JWT实战--Restful API最佳实践](https://blog.csdn.net/mrweb/article/details/106709450)
 - [koa2+mysql实现RESTful API](https://blog.csdn.net/qq_30604453/article/details/84791069)
