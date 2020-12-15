@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import Head from 'next/head'
-import { Row, Col, Icon, Breadcrumb, Affix } from 'antd'
+import { Row, Col, Icon, Breadcrumb, Affix, Anchor  } from 'antd'
 
 import Header from './components/Header'
 import Author from './components/Author'
@@ -25,6 +25,9 @@ import moment from 'moment'
 import 'github-markdown-css/github-markdown.css'
 import 'prismjs/themes/prism-okaidia.css'
 // import Prism from 'prismjs'
+import MarkNav from 'markdown-navbar';
+import 'markdown-navbar/dist/navbar.css';
+
 
 const Detail = (props) => {
 
@@ -100,7 +103,12 @@ const Detail = (props) => {
             <div className="detailed-nav comm-box">
               <div className="nav-title">文章目录</div>
               <div className="toc-list">
-                {tocify && tocify.render()}
+                {/* {tocify && tocify.render()} */}
+                <MarkNav
+                  className="article-menu"
+                  source={myMyarticle.articleContent}
+                  headingTopOffset={80}
+                />
               </div>
             </div>
           </Affix>
